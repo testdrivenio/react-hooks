@@ -1,10 +1,10 @@
-﻿# Hooks, line and simple!
+﻿# Skipping Class, playing hookie... with hooks!
  &nbsp; &nbsp; &nbsp; &nbsp; by: ajDevs | 1/14/19
 ## Part 1 - What is this hook all about?
 #### Learning Objectives
 1. What are Hooks?
 2. Why were they implemented in React.js
-3. How are they used? 
+3. How are hooks used? 
 ### What are hooks?
 
 > Hooks allow you to use state and other React features in functional components. No need to write class components.
