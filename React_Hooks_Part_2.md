@@ -10,7 +10,7 @@ by: ajDevs | 1/16/19
 > TLDR: Yes, hooks have rules. Hooks must be initiated at the top level of a function component and cannot reside inside conditionals, loops, or nested components.
 
 #### 1. Hooks must be called at the top level, in the same order, always. 
-Repeat, Hooks don't play well with conditionals, loops, or nested functions. These rules are unconventional, but make sense once you understand how hooks work under the hood. Hooks need to be called in the same order with in a function every time to work properly. This is because React creates an array of these hook calls to keep that order. This order helps React tell the difference, for example, between multiple ```useState( )``` and ```useEffect( )``` method calls in a single component or across an application. 
+Repeat, Hooks don't play well with conditionals, loops, or nested functions. These rules are unconventional, but make sense once you understand how hooks work under the hood. Hooks need to be called in the same order within a function every time to work properly. This is because React creates an array of these hook calls to keep that order. This order helps React tell the difference, for example, between multiple ```useState( )``` and ```useEffect( )``` method calls in a single component or across an application. 
 ```
 //This is good!
 function ComponentWithHooks() {
@@ -200,7 +200,7 @@ class  Media  extends  React.Component {
 	}
 
 	componentDidUpdate(prevProps){
-	// reset and resubscribe if there are any changes
+	// reset and re-subscribe if there are any changes
 	if(prevProps.query  !==  this.props.query){
 		this.removeListener()
 			this.setup()
@@ -307,3 +307,14 @@ function  MediaHookless() {
 
 export  default  MediaHookless;
 ```
+[Here is a link to the Media Query repo.](https://github.com/testdrivenio/react-hooks/tree/master/media-query-custom-hooks)
+
+### Clonclusion
+
+React hooks will have many benefits when they debut officially.
+Hooks will... 
+- make it easy to hook into react's life-cycle methods without using a class component
+- reduce code by increasing reusability and abstracting complexity 
+- help ease the way data is shared between components
+
+I can't wait to see more powerful examples of how react hooks can be utilized. Thanks for reading!

@@ -18,7 +18,7 @@ If you've developed using React, you know how moody complex stateful logic can g
 Hooks allow developers to write simple, stateful, functional components and spend less time designing and restructuring component hierarchy while developing. How? With hooks, you can *extract*/*share* stateful logic between components!
 
 #### Simplifies component logic!
-When the inevitable exponential growth of logic appears in your application, simple components become a dizzying abyss of stateful logic and side effects. Lifecycle methods become cluttered with unrelated methods. Component's responsibilities grow and become inseparable. In turn, this all makes coding cumbersome and testing difficult.
+When the inevitable exponential growth of logic appears in your application, simple components become a dizzying abyss of stateful logic and side effects. Life-cycle methods become cluttered with unrelated methods. Component's responsibilities grow and become inseparable. In turn, this all makes coding cumbersome and testing difficult.
 
 #### You can skip *class*!
 Classes are a huge part of React architecture. There are many benefits to classes, but they create a barrier to entry for beginners. With classes, you also have to remember bind *this* to event handlers and code becomes lengthy and a bit redundant. The future of coding will also not play nicely with classes as they might encourage patterns that slack behind other design patterns.
@@ -53,7 +53,7 @@ onClick={() => setWeight(weight + 15)}
 ```
 
 #### The  useEffect( ) hook method
-The best to use the effect hook is to use it like you would common lifecycle methods like componentDidMount, componentDidUpdate, and componentWillUnmount, awesome! This is a little more complex than useState, and will take a few examples to demonstrate its power and purpose. For example:
+The best to use the effect hook is to use it like you would common life-cycle methods like componentDidMount, componentDidUpdate, and componentWillUnmount, awesome! This is a little more complex than useState, and will take a few examples to demonstrate its power and purpose. For example:
 
 ```
   // Similar to componentDidMount and componentDidUpdate:
@@ -77,6 +77,6 @@ So how do I trigger it again?
 ```
 onClick={() => setCount(count + 1)}
 ```
-This will trigger the useEffects method and render the new count in the title of the document just slightly after the DOM updates via useState in the previous section. 
+This will trigger the ```useEffect( )``` method and render the new count in the title of the document just slightly after the DOM updates via useState in the previous section. 
 
 - *Note:* this is a great place to put API calls...
