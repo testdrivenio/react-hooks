@@ -309,7 +309,7 @@ export  default  MediaHookless;
 ```
 [Here is a link to the Media Query repo.](https://github.com/testdrivenio/react-hooks/tree/master/media-query-custom-hooks)
 
-### Clonclusion
+### Conclusion
 
 React hooks will have many benefits when they debut officially.
 Hooks will... 
