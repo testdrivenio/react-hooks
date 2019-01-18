@@ -1,6 +1,6 @@
 ## React Custom Hook Example
 
-This project contains 2 components with identical functionality. One component implements react's new Hooks API, the other does not contain hooks. 
+This project contains two components with identical functionality. One component implements react's new Hooks API, the other does not contain hooks. 
 
 
 The project used create-react-app with a minor package.json update.

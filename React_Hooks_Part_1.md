@@ -1,5 +1,5 @@
 ﻿# Skipping Class, playing hookie... with hooks!
- &nbsp; &nbsp; &nbsp; &nbsp; by: ajDevs | 1/14/19
+by: ajDevs | 1/14/19
 ## Part 1 - What is this hook all about?
 #### Learning Objectives
 1. What are Hooks?
@@ -13,15 +13,15 @@
 
 > Hooks allow developers to reuse of stateful logic between components. They simplifies component logic, and best of all, you can skip class.
 
-&nbsp; &nbsp; &nbsp; &nbsp; If you've developed using React, you know how moody complex stateful logic can get, right?  This happens when applications get several new features added to up the functionality. To try and simplify this problem the big brains behind React.js thought they should find a way around this issue. 
-#### &nbsp;  &nbsp;  Allows reuse of stateful logic between components!
-&nbsp; &nbsp; &nbsp; &nbsp; Hooks allow developers to write simple, stateful, functional components and spend less time designing and restructuring component hierarchy while developing. How? With hooks, you can *extract*/*share* stateful logic between components!
+If you've developed using React, you know how moody complex stateful logic can get, right?  This happens when applications get several new features added to up the functionality. To try and simplify this problem the big brains behind React.js thought they should find a way around this issue. 
+#### Allows reuse of stateful logic between components!
+Hooks allow developers to write simple, stateful, functional components and spend less time designing and restructuring component hierarchy while developing. How? With hooks, you can *extract*/*share* stateful logic between components!
 
-#### &nbsp;  &nbsp;  Simplifies component logic!
-&nbsp; &nbsp; &nbsp; &nbsp; When the inevitable exponential growth of logic appears in your application, simple components become a dizzying abyss of stateful logic and side effects. Lifecycle methods become cluttered with unrelated methods. Component's responsibilities grow and become inseparable. In turn, this all makes coding cumbersome and testing difficult.
+#### Simplifies component logic!
+When the inevitable exponential growth of logic appears in your application, simple components become a dizzying abyss of stateful logic and side effects. Lifecycle methods become cluttered with unrelated methods. Component's responsibilities grow and become inseparable. In turn, this all makes coding cumbersome and testing difficult.
 
-#### &nbsp;  &nbsp;  You can skip *class*!
-&nbsp; &nbsp; &nbsp; &nbsp; Classes are a huge part of React architecture. There are many benefits to classes, but they create a barrier to entry for beginners. With classes, you also have to remember bind *this* to event handlers and code becomes lengthy and a bit redundant. The future of coding will also not play nicely with classes as they might encourage patterns that slack behind other design patterns.
+#### You can skip *class*!
+Classes are a huge part of React architecture. There are many benefits to classes, but they create a barrier to entry for beginners. With classes, you also have to remember bind *this* to event handlers and code becomes lengthy and a bit redundant. The future of coding will also not play nicely with classes as they might encourage patterns that slack behind other design patterns.
 
 ### How are hooks used?
 
@@ -29,10 +29,10 @@
 
 ```import  { useState, useEffect }  from  'react';```
 
-&nbsp; &nbsp; &nbsp; &nbsp; Simple enough, but how do you actually use these new methods? The following examples will be quite simple but, the abilities of these methods are very powerful.
+Simple enough, but how do you actually use these new methods? The following examples will be quite simple but, the abilities of these methods are very powerful.
 
-#### &nbsp;  &nbsp; The  useState( ) hook method
-&nbsp; &nbsp; &nbsp; &nbsp; The best to use the state hook is to destructure it and set the original value. The first parameter will be used to store the state, the second to update the state. For example:
+#### The  useState( ) hook method
+The best to use the state hook is to destructure it and set the original value. The first parameter will be used to store the state, the second to update the state. For example:
 
 ```const  [weight, setWeight]  =  useState(150);```
  
@@ -52,8 +52,8 @@ useState(150) = the method used to set the state to 150 at the start. This can b
 onClick={() => setWeight(weight + 15)}
 ```
 
-#### &nbsp;  &nbsp; The  useEffect( ) hook method
-&nbsp; &nbsp; &nbsp; &nbsp; The best to use the effect hook is to use it like you would common lifecycle methods like componentDidMount, componentDidUpdate, and componentWillUnmount, awesome! This is a little more complex than useState, and will take a few examples to demonstrate its power and purpose. For example:
+#### The  useEffect( ) hook method
+The best to use the effect hook is to use it like you would common lifecycle methods like componentDidMount, componentDidUpdate, and componentWillUnmount, awesome! This is a little more complex than useState, and will take a few examples to demonstrate its power and purpose. For example:
 
 ```
   // Similar to componentDidMount and componentDidUpdate:
@@ -62,7 +62,7 @@ onClick={() => setWeight(weight + 15)}
   });
 ```
 
-&nbsp; &nbsp; &nbsp; &nbsp; Anytime the component updates, this method will be called after render. Oh, there's more functionality to be had here. For instance, if you only wanted it to update when the variable count was mutated, you simply add that fact to the end of the method in an array, similar to the accumulator at the end of the higher-order reduce method.
+Anytime the component updates, this method will be called after render. Oh, there's more functionality to be had here. For instance, if you only wanted it to update when the variable count was mutated, you simply add that fact to the end of the method in an array, similar to the accumulator at the end of the higher-order reduce method.
 
 ```
   // checkout the variable count in the array at the end...
@@ -71,7 +71,7 @@ onClick={() => setWeight(weight + 15)}
   }, [ count ]);
 ```
 
-&nbsp; &nbsp; &nbsp; &nbsp; So how do I trigger it again?
+So how do I trigger it again?
 
 **Example:**
 ```
