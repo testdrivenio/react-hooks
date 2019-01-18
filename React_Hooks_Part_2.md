@@ -7,51 +7,65 @@ by: ajDevs | 1/16/19
 3. What are some examples of great use cases?
 ### Are there rules to using hooks?
 
-> Yes. Hooks have rules. A hook's functionality is not completely unique to React, but the implementation of hooks in react creates some unconventional rules.
-> 
-#### 1. Hooks cannot be used in a class component. 
-Hooks must be used in either a function component or in a custom hook, which will be discussed later. 
+> TLDR: Yes, hooks have rules. Hooks must be initiated at the top level of a function component and cannot reside inside conditionals, loops, or nested components.
 
-What happens?? and more details why?
-
-#### 2. Hooks must be called at the top level. 
-> Once you have a decent grasp on the basics of hooks, you will develop an *unconditional love* for them!
-
-That's just a line to remember not to use hooks in conditional statements. They wont work consistently. Hooks don't play well with conditionals, loops or nested functions. This is due to the way they are initiated (instantiated?) when called in our function components. Hooks need to be called in the same order every time. That's how React can tell the difference, for example, between multiple ```useState( )``` and ```useEffect( )``` method calls in a single component. 
+#### 1. Hooks must be called at the top level, in the same order, always. 
+Repeat, Hooks don't play well with conditionals, loops, or nested functions. These rules are unconventional, but make sense once you understand how hooks work under the hood. Hooks need to be called in the same order with in a function every time to work properly. This is because React creates an array of these hook calls to keep that order. This order helps React tell the difference, for example, between multiple ```useState( )``` and ```useEffect( )``` method calls in a single component or across an application. 
 ```
-// better examples here. what not to do. top level?
-const [table, setTable] = useState(false)
-const [drinks, setDrinks] = useState(12)
+//This is good!
+function ComponentWithHooks() {
+	// top-level!
+	const [table, setTable] = useState(false)
+	const [drinks, setDrinks] = useState(12)
+
+    return (
+        //...
+    )                      
+}
 ``` 
-When the above is rendered for the second time, the useState method ignores the arguments, in the is case: false, and 12, and uses the components state to read the values.
+When the above component is rendered for the second time, the useState method ignores the arguments, in the is case: false, and 12, and uses the component's state to retrieve the values. If the order of that changes during another render it can have adverse effects on your application's functionality. 
 ```
 // DON'T DO THIS!!
+const [DNAMatch, setDNAMatch] = useState(false)
 if (name !== '') {
-    useEffect(function persistForm() {
-      localStorage.setItem('loser', name);
-    });
+	setDNAMatch(true)
+	const [name, setName] = useState(name)
+    useEffect(function persistFamily() {
+      localStorage.setItem('dad', name);
+    }, []);
   }
 ``` 
 ```
 // DO THIS!!
+const [DNAMatch, setDNAMatch] = useState(false)
+const [name, setName] = useState(null)
 useEffect(function store() {
     if (name !== '') {
-      localStorage.setItem('dude', name);
+		setDNAMatch(true)
+	  	setName(name)
+      	localStorage.setItem('dad', name);
     }
-  });
+  }, []);
 ```
+
+#### 2. Hooks cannot be used in a class component. 
+Hooks must be initialized in either a function component or in a custom hook function. Custom hook functions can only be called within a function component and must follow the same rules as non-custom hooks do in functional components. Take note, you can still use class components within the same application. You can render your function component with hooks as a child of a class component.
 
 #### 3. Custom hooks will start with the word *use*, camel-cased.  
 > This is more of a strong suggestion than a rule. You name it, you set the parameters, you tell it what it should return, if anything. 
 
-Following this rule will help two things. First, you know this function needs to follow the hook rules listed above. Second, consistency. When hooks become more prevalent, this consistency may help increase adoption and compatibility in the near future. Also, React has released a linter for your editors to help you avoid mistakes when developing with hooks. This linter applies the rules pertaining to hooks to custom hook functions by identifying those functions by looking for, you guessed it... *use* as the pretext to your function name, so, start your custom functions with the word use. Thanks!
+Following this rule will help two things. 
+ * First, you know this code block needs to follow the hook rules listed above. 
 
+ * Second, consistency with in your application. When you see ***use***Function, you know its a custom hook, and must follow the rules listed above. 
+ 
+When hooks become more prevalent, consistency should help increase adoption and compatibility in the future. Also, React has released a linter for you to use in your text editor of choice to help you avoid mistakes when developing with hooks. This linter applies the rules pertaining to hooks to custom hook functions by identifying those functions by looking for, you guessed it... the *use* keyword as the pretext to your camel-cased function name. Start your custom functions with the word ***use***. Thanks!
 
 ### Wait, so what are custom hooks?
 
-> Custom hooks are just functions. They have the same functionality of hooks inside your function component, and also follow the same rules. Yet, they allow you to consolidate logic and reuse hooks to again, reduce duplicate code. 
+> TLDR: Custom hooks are just functions and follow the same rules as non-custom hooks initialized inside function components. The benefit, they allow you to consolidate logic, share data, and reuse hooks across components.
 
-When you want share logic is two separate functions, you usually create another function to support that. Well, components are functions, and so are hooks. You can extract hook logic to be shared between components and/or functions. As stated earlier, when writing custom hooks, you name it, you set the parameters, you tell it what it should return, if anything. below is an example of a custom hook for a fetch called, useFetch.
+In javascript, when you want share logic between two separate functions, you create another function to support that. Well, components are functions, and so are hooks. You can extract hook logic to be shared between components. As stated earlier, when writing custom hooks, you name it (start with *use*), you set the parameters, you tell it what it should return, if anything. below is an example of a custom fetch hook.
 ```
 import { useEffect, useState } from 'react'
 
@@ -83,17 +97,15 @@ const useFetch = ({ url, defaultData = null }) => {
 
 export default useFetch
 ```
-One concern developers may have is what happens when ```useFetch( )``` is called all over the place in an app. Does a developer need to keep track of details of each ```useFetch( )``` call? Short answer, no. React keeps track of the calls made to ```useFetch( )``` . Each custom hook will have its own state and will not share state with other instances of the same hook. Each call to ```useState( )``` is independent from another.
-
 ### Common and useful examples of hooks
 
-> There are many ways to use hooks. Use your imagination. Although there are unconventional rules alongside hooks, they are still very flexible and have only begun to display their potential. 
+> There are many ways to use hooks. Use your imagination. Although there are unconventional rules alongside hooks, they are still very flexible and have only begun to display their potential . 
 
 #### Simple example of comparing a Class component to a Function component.
 
-The examples below demonstrates ```useState( )``` saving space and complexity on a very simple level.  After we show what an *old school* class component would look like without hooks, we will show the same example with hooks. 
+The examples below demonstrate the difference between a class component without hooks, first code black, and a function component with hooks, ```useState( )```. 
 
-This class component should be pretty familiar.
+This class component should be pretty familiar. 
 
 	import React from 'react'
 	
@@ -148,13 +160,12 @@ In the code that follows we use hooks to simplify the code tremendously.
 			</div> 
 		);  
 	}
-Line count is not that important, but it went from 29 to 21. As the code gets more complex you can save a lot of space and, with that, have code that is much easier to digest and much more approachable.
 
-#### A more complex comparison example using useEffect and useState
+When you implement hooks you decrease the amount of code and increase readability. As the code gets more complex, you can curb that complexity with hooks and have code that is much easier to digest and more approachable. Next, we'll compare a more complex class component with a refactored function component using a custom hook function.
 
-This will demonstrate the power of the ```useState( )``` and the ```useEffect( ) ``` functions. The first will show a component and container written using current React, without hooks.
+This will demonstrate the power of the ```useState( )``` and the ```useEffect( ) ``` methods. The first example will show a class component and container, without hooks.
 
-*The Component**
+**The Class Component**
 ```
 import  React  from  'react';
 
@@ -209,7 +220,8 @@ class  Media  extends  React.Component {
 
 export  default  Media;
 ```
-*The Container**
+**The Container**
+Notice the perceived hierarchy of the media element
 ```
 import  React, { Component } from  'react';
 import  Media  from  './Hookless.Media.container'
@@ -243,7 +255,7 @@ class  MediaHookless  extends  Component {
 export  default  MediaHookless;
 ```
 
-Lets implement some hooks... check it out.
+Let's implement a custom hook with ```useState``` and ```useEffect```.
 
 **The Component**
 ```
@@ -254,7 +266,7 @@ const  useMedia  = (query) => {
 		window.matchMedia(query).matches
 	)
 	
-	// componentDidMount AND componentDidUnount
+	// componentDidMount AND componentDidUnmount
 	useEffect(() => {
 		let  media  =  window.matchMedia(query)
 		if(media.matches  !==  matches) {
@@ -263,7 +275,7 @@ const  useMedia  = (query) => {
 		
 		let  listener  = () => setMatches(media.matches)
 		media.addListener(listener)
-		return  media.removeListener(listener)
+		return () => media.removeListener(listener)
 	}, [query])
 
 	return  matches
@@ -271,7 +283,7 @@ const  useMedia  = (query) => {
 
 export  default  useMedia
 ```
-*The Container**
+**The Container**
 ```
 import  React  from  'react';
 import  useMedia  from  './Hooks.Media.container'
@@ -295,6 +307,3 @@ function  MediaHookless() {
 
 export  default  MediaHookless;
 ```
-
-The difference... Jesus...
-MAKE SURE YOU HAVE react: 'next' AND react-dom:'next' in your package.json!
