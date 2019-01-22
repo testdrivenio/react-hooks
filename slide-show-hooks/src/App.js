@@ -20,15 +20,13 @@ function Slide({
   title,
   children
 }){
-
   let ref = useRef()
-
   useEffect(() => {
     if(isCurrent && takeFocus){
       ref.current.focus()
     }
   }, [isCurrent, takeFocus])
-  
+
   return (
     <li
       ref={ref}
@@ -44,7 +42,6 @@ function Slide({
         <div className="Explanation">
           {children}
         </div>
-        
       </div>
     </li>
    
@@ -71,7 +68,6 @@ function SlideNav(props) {
 }
 
 function SlideNavItem(props) {
-  // console.log(props.isCurrent, 'ITEM');
   const { isCurrent } = props
   return isCurrent
     ? <button className='SlideNavItemOn' {...props}/>
@@ -127,8 +123,6 @@ let useProgress = (animate, time) => {
 }
 
 function App() {
-  // let [currentIndex, setCurrentIndex] = useState(0)
-  // let [isPlaying, setIsPlaying] = useState(false)
   let [state, dispatch] = useReducer((state, action) => {
     switch (action.type) {
       case 'PROGRESS':
@@ -178,92 +172,92 @@ function App() {
     return (
       <div className="App">
         <header className="App-header">
-        <Carousel>
-          <Slides>
-            {
-              slides.map((slide, index) => {
-                return (
-                  <Slide 
-                    isCurrent={index===state.currentIndex}
-                    key={index}
-                    slide={slide}
-                    takeFocus={state.takeFocus}
-                    children={slide.explanation}
-                  />
-                )
-              })
-            }
-          
-          </Slides>
-          <SlideNav>
-            {
-              slides.map((slide, index) => {
-                return index === state.currentIndex
-                  ? (<SlideNavItem
-                    key={index}
-                    children={<FaCircle style={{opacity: 1}}/>}
-                    aria-label={`Slide ${index + 1}`}
-                    onClick={() => {
-                      dispatch({type: 'GOTO', index})
-                    }}
-                  />)
-                  : (<SlideNavItem
-                    key={index}
-                    children={<FaCircle style={{opacity: .6}} />}
-                    aria-label={`Slide ${index + 1}`}
-                    onClick={() => {
-                      dispatch({type: 'GOTO', index})
-                    }}
-                  />)
-              })
-            }
-          </SlideNav>
+          <Carousel>
+            <Slides>
+              {
+                slides.map((slide, index) => {
+                  return (
+                    <Slide 
+                      isCurrent={index===state.currentIndex}
+                      key={index}
+                      slide={slide}
+                      takeFocus={state.takeFocus}
+                      children={slide.explanation}
+                    />
+                  )
+                })
+              }
+            
+            </Slides>
+            <SlideNav>
+              {
+                slides.map((slide, index) => {
+                  return index === state.currentIndex
+                    ? (<SlideNavItem
+                      key={index}
+                      children={<FaCircle style={{opacity: 1}}/>}
+                      aria-label={`Slide ${index + 1}`}
+                      onClick={() => {
+                        dispatch({type: 'GOTO', index})
+                      }}
+                    />)
+                    : (<SlideNavItem
+                      key={index}
+                      children={<FaCircle style={{opacity: .6}} />}
+                      aria-label={`Slide ${index + 1}`}
+                      onClick={() => {
+                        dispatch({type: 'GOTO', index})
+                      }}
+                    />)
+                })
+              }
+            </SlideNav>
 
-          <Controls>
-          {
-            state.isPlaying
-              ? (
-                <IconButton
-                  aria-label="pause"
-                  onClick={() => {dispatch({type: 'PAUSE'})}}
-                  children={<FaPause />}
-                />
-              )
-              : (
-                <IconButton
-                  aria-label="Play"
-                  onClick={() => {
-                    dispatch({type: 'PLAY'})
-                  }}
-                  children={<FaPlay />}
-                />
-              )
-          }
-          <SpacerGif width="10px"/>
-          <IconButton
-            aria-label="Previous Slide"
-            onClick={() => {
-              dispatch({type: 'PREV'})
-            }}
-            children={<FaChevronCircleLeft />}
-          />
-          <SpacerGif width="10px"/>
-          <IconButton
-            aria-label="Next Slide"
-            onClick={() => {
-              dispatch({type: 'NEXT'})
-            }}
-            children={<FaChevronCircleRight />}
-          />
-        </Controls>
+            <Controls>
+              {
+                state.isPlaying
+                  ? (
+                    <IconButton
+                      aria-label="pause"
+                      onClick={() => {dispatch({type: 'PAUSE'})}}
+                      children={<FaPause />}
+                    />
+                  )
+                  : (
+                    <IconButton
+                      aria-label="Play"
+                      onClick={() => {
+                        dispatch({type: 'PLAY'})
+                      }}
+                      children={<FaPlay />}
+                    />
+                  )
+              }
+              <SpacerGif width="10px"/>
+              <IconButton
+                aria-label="Previous Slide"
+                onClick={() => {
+                  dispatch({type: 'PREV'})
+                }}
+                children={<FaChevronCircleLeft />}
+              />
+              <SpacerGif width="10px"/>
+              <IconButton
+                aria-label="Next Slide"
+                onClick={() => {
+                  dispatch({type: 'NEXT'})
+                }}
+                children={<FaChevronCircleRight />}
+              />
+            </Controls>
 
-        <ProgressBar 
-          key={state.currentIndex + state.isPlaying}
-          time={TIME_DURATION}
-          animate={state.isPlaying}
-        />
+            <ProgressBar 
+              key={state.currentIndex + state.isPlaying}
+              time={TIME_DURATION}
+              animate={state.isPlaying}
+            />
 
-      </Carousel>
+          </Carousel>
         </header>
       </div>
     );
