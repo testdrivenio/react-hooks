@@ -44,17 +44,41 @@ ul, h2 {
 .IconButton {
   background:none;
   border: none;
-  opacity: .8;
+  opacity: .9;
   font-size: 2rem;
   color: rgb(199, 184, 184);
 }
 
-.SlideNavItem {
+.SlideNavItemOff {
   background:none;
   border: none;
-  opacity: .8;
+  opacity: .6;
   font-size: 2rem;
   color: rgb(199, 184, 184);
+}
+
+.SlideNavItemOn {
+  background:none;
+  border: none;
+  opacity: 1;
+  font-size: 2rem;
+  color: rgb(199, 184, 184);
+}
+
+.ProgressBar {
+  position: absolute;
+  display: flex;
+  height: 3%;
+  opacity: .8;
+  color: rgb(199, 184, 184);
+  right: 0;
+  left: 0;
+  bottom: 0;
+}
+
+.ProgressBar div {
+  opacity: .8;
+  background-color: rgb(199, 184, 184);
 }
 
 
