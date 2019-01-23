@@ -6,7 +6,7 @@ TODO: intro
 
 1. Are there rules to using hooks?
 1. What is a custom hook?
-1. When do I use custom hooks?
+1. Can I see the benifits of using hooks?
 
 ## Rules of Hooks
 
@@ -80,7 +80,7 @@ This is more of a strong suggestion than a rule. You name the custom hook, you s
 
 Custom hooks are just functions and follow the same rules as non-custom hooks. The benefit, they allow you to consolidate logic, share data, and reuse hooks across components. 
 
-## When do I use custom hooks?
+### When do I use custom hooks?
 
 Custom Hooks are best used when you need to share logic between components. In javascript, when you want share logic between two separate functions, you create another function to support that. Well, components are functions, and so are hooks. You can extract hook logic to be shared between components all around your application. As stated earlier, when writing custom hooks, you name it (start with *use*), you set the parameters, and you tell it what it should return, if anything.
 
@@ -120,9 +120,11 @@ export default useFetch
 
 When you are trying thinking about a situation for when you would use a custom hook, use your imagination. Although there are unconventional rules alongside hooks, they are still very flexible and have only begun to display their potential.
 
-### Comparing a class component to a function component.
+## Benefits of using hooks by example
 
-The examples below demonstrate the difference between a class component without hooks, first code black, and a function component with hooks, ```useState( )```. 
+The demonstration below will display the benefits of using hooks by comparing a class component without hooks to a function component with hooks. Each example will consist of two parts, a component and a container. The first example will be quite simple, demonstrating the differences when using ```useState( )``` . The second example will be more complex by using a custom hook, which contains ```useEffect( )``` and ```useState( )``` method calls.
+
+### Simple demonstration - ```useState( )```
 
 This class component should be pretty familiar. *(no hooks)* 
 
@@ -186,9 +188,9 @@ function OneChanceButton(props)  {
 
 When you implement hooks you decrease the amount of code and increase readability. As the code gets more complex, you can curb that complexity with hooks and have code that is much easier to digest and more approachable. Next, we'll compare a more complex class component with a refactored function component using a custom hook function.
 
-### A more complex comparison using ```useState( )``` and ```useEffect( )``` .
+### A more complex demonstration - custom hook, ```useMedia```.
 
-This code example below will demonstrate the power of the ```useState( )``` and the ```useEffect( ) ``` methods. The first example will show a class component and container, without hooks.
+This code example below will demonstrate the power of a custom hook with ```useState( )``` and ```useEffect( ) ``` methods. The first example will show a class component and container, without hooks.
 
 #### Example: No hooks
 
@@ -282,7 +284,7 @@ class  MediaHookless  extends  Component {
 export  default  MediaHookless;
 ```
 
-Let's implement a custom hook with ```useState``` and ```useEffect```.
+Let's implement a custom hook with ```useState( )``` and ```useEffect( )```.
 
 #### Example: With hooks
 
@@ -317,7 +319,7 @@ export  default  useMedia
 import  React  from  'react';
 import  useMedia  from  './Hooks.Media.container'
 
-function  MediaHookless() {
+function  MediaHooks() {
 	let  small  =  useMedia("(max-width: 400px)")
 	let  large  =  useMedia("(min-width: 800px)")
 
@@ -334,7 +336,7 @@ function  MediaHookless() {
 	)
 }
 
-export  default  MediaHookless;
+export  default  MediaHooks;
 ```
 [The Media Query repo.](https://github.com/testdrivenio/react-hooks/tree/master/media-query-custom-hooks)
 
