@@ -128,7 +128,7 @@ The demonstration below will display the benefits of using hooks by comparing a 
 
 This class component should be pretty familiar. *(no hooks)* 
 
-```
+```javascript
 import React from 'react'
 
 class OneChanceButton extends React.Component  {
@@ -249,9 +249,12 @@ class  Media  extends  React.Component {
 
 export  default  Media;
 ```
+
 **The Container**
+
 *Notice the perceived hierarchy of the media element*
-```
+
+```javascript
 import  React, { Component } from  'react';
 import  Media  from  './Hookless.Media.container'
 
@@ -289,7 +292,8 @@ Let's implement a custom hook with ```useState( )``` and ```useEffect( )```.
 #### Example: With hooks
 
 **The Functional Component**
-```
+
+```javascript
 import {useState, useEffect} from  'react';
 
 const  useMedia  = (query) => {
@@ -315,7 +319,8 @@ const  useMedia  = (query) => {
 export  default  useMedia
 ```
 **The Container**
-```
+
+```javascript
 import  React  from  'react';
 import  useMedia  from  './Hooks.Media.container'
 
