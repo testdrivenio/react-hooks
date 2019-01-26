@@ -1,6 +1,8 @@
 # React Hooks - The Rules and Custom Hooks
 
-TODO: intro
+React hooks look great at first glance. But if you take a minute to think about it, re-initializing multiple hook methods, such as useState, useEffect, in multiple components could slight the DRY principle we all cherish. Well, lets see how we can reuse these wonderful new built in methods with custom hooks. Before we dive into some new tricks involving hooks, we’ll dive into the rules involved using hooks to make your custom hook experience a joy.
+
+[Here is REact’s documentation for hooks] (https://reactjs.org/docs/hooks-custom.html#extracting-a-custom-hook)
 
 ## Learning Objectives
 
