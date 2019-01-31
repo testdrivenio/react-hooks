@@ -2,7 +2,7 @@
  
 React has benefits out the wazoo, but there are some slightly aggravating architecture principles that need to be addressed while developing larger applications. For instance, using complex higher order components to reuse stateful logic, and relying on lifecycle methods that trigger unrelated logic. Well, hooks help ease that aggravation… let’s get into it.
 
-[There’s a more in-depth explanation on react’s motivation] (https://reactjs.org/docs/hooks-intro.html#motivation)
+[There’s a more in-depth explanation on react’s motivation](https://reactjs.org/docs/hooks-intro.html#motivation)
 
 ## Learning Objectives
 
@@ -31,7 +31,7 @@ When the inevitable exponential growth of logic appears in your application, sim
 
 ### You can skip Classes
 
-Classes are a huge part of React architecture. There are many benefits to classes, but they create a barrier to entry for beginners. With classes, you also have to remember bind *this* to event handlers and code becomes lengthy and a bit redundant. The future of coding will also not play nicely with classes as they might encourage patterns that slack behind other design patterns.
+Classes are a huge part of React's architecture. There are many benefits to classes, but they create a barrier to entry for beginners. With classes, you also have to remember bind *this* to event handlers and code becomes lengthy and a bit redundant. The future of coding will also not play nicely with classes as they might encourage patterns that slack behind other design patterns.
 
 ## How are hooks used?
 
@@ -57,7 +57,7 @@ onClick={() => setWeight(weight + 15)}
 
 1. `weight` is the state
 1. `setWeight` is a method used to update the state
-1. `useState(150)` is method used to set the initial value (any primitive type) of the state to 150 at the start
+1. `useState(150)` is the method used to set the initial value (any primitive type)
 
 It's worth noting that you can destructure the state hook many times in a single component:
 
@@ -69,7 +69,7 @@ const [todos, setTodos] = useState([{ text: 'Date' }]);
 
 ### The `useEffect` Hook Method
 
-It's best to the effect Hook like you would any common lifecycle method like `componentDidMount`, `componentDidUpdate`, and `componentWillUnmount`.
+It's best to use the effect Hook like you would any common lifecycle method like `componentDidMount`, `componentDidUpdate`, and `componentWillUnmount`.
 
 For example:
 
@@ -80,7 +80,7 @@ useEffect(() => {
 });
 ```
 
-Anytime the component updates, `useEffect` will be called after render. Now, if you only wanted `useEffect` to update when the variable count was mutated, you simply add that fact to the end of the method in an array, similar to the accumulator at the end of the higher-order `reduce` method.
+Anytime the component updates, `useEffect` will be called after render. Now, if you only want `useEffect` to update when the variable count is mutated, you simply add that fact to the end of the method in an array, similar to the accumulator at the end of the higher-order `reduce` method.
 
 ```javascript
 // check out the variable count in the array at the end...
@@ -95,12 +95,18 @@ Let's combine the two examples:
 const [weight, setWeight] = useState(150);
 
 useEffect(() => {
-  document.title = `You clicked ${count} times`;
-}, [ count ]);
+  document.title = `You weigh ${weight}, you ok with that?`;
+}, [ weight ]);
 
 onClick={() => setWeight(weight + 15)}
 ```
 
-So, when `onClick` is triggered, the `useEffects` method will also be called and render the new count in the title of the document just slightly after the DOM updates.
+So, when `onClick` is triggered, the `useEffects` method will also be called and render the new weight in the title of the document just slightly after the DOM updates.
 
-`useEffect` is perfect for making API calls.
+`useEffect` is perfect for making API calls. 
+
+## Conclusion
+
+React Hooks are an amazing new feature coming to us soon! The reasons for the implementation are justified and coupled with that, I believe that this will lower the barrier to coding in React tremendously and keep it on the top of the favorite frameowrks list. It will be very exciting to see how this changes the way third party libraries work, especially state management tools, and routers.
+
+Next we'll explore some of the rules associated with using hooks in your projects, plus, reveal custom hooks and how great thay are!
