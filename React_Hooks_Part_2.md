@@ -1,6 +1,6 @@
 # React Hooks - The Rules and Custom Hooks
 
-React hooks look great at first glance. But if you take a minute to think about it, re-initializing multiple hook methods, such as useState, useEffect, in multiple components could slight the DRY principle we all cherish. Well, lets see how we can reuse these wonderful new built in methods with custom hooks. Before we dive into some new tricks involving hooks, we’ll dive into the rules involved using hooks to make your custom hook experience a joy.
+React hooks look great, but if you take a minute, you may realize that re-initializing multiple hook methods, such as useState and useEffect, in multiple components could slight the DRY principle we all cherish. Well, lets see how we can reuse these wonderful new built in methods by creating custom hooks. Before we dive into some new tricks involving hooks, we’ll dive into the rules using hooks and make our custom hook journey more enjoyable.
 
 [Here is REact’s documentation for hooks] (https://reactjs.org/docs/hooks-custom.html#extracting-a-custom-hook)
 
@@ -19,7 +19,7 @@ Yes, React Hooks have rules. These rules may seem unconventional at first glance
 
 ### 1. Hooks must be called at the top level, in the same order, always.
 
-React Hooks creates an array of hook calls to keep order. This order helps React tell the difference, for example, between multiple ```useState( )``` and ```useEffect( )``` method calls in a single component or across an application. 
+React Hooks create an array of hook calls to keep order. This order helps React tell the difference, for example, between multiple ```useState( )``` and ```useEffect( )``` method calls in a single component or across an application. 
 
 For example:
 
@@ -37,7 +37,7 @@ function ComponentWithHooks() {
 }
 ```
 
-1. On first render,`42`, `with a girl`, `{ text: 'Date'}` are all pushed into a state array. 
+1. On first render,`42`, `with a girl`, `[{ text: 'Date'}]` are all pushed into a state array. 
 1. When the component rerenders, the `useState( )` method arguments are ignored, 
 1. The values for `age`, `date`, and `todos` are retrieved from the component's state, which is the aforementioned state array.
 
@@ -74,11 +74,11 @@ useEffect(function store() {
 
 ### 3. Hooks cannot be used in a class component. 
 
-Hooks must be initialized in either a function component or in a custom hook function. Custom hook functions can only be called within a function component and must follow the same rules as non-custom hooks in functional components. Take note, you can still use class components within the same application. You can render your function component with hooks as a child of a class component.
+Hooks must be initialized in either a function component or in a custom hook function. Custom hook functions can only be called within a function component and must follow the same rules as non-custom hooks. Take note, you can still use class components within the same application. You can render your function component with hooks as a child of a class component.
 
 ### 4. Custom hooks will start with the word *use*, camel-cased.  
 
-This is more of a strong suggestion than a rule. You name the custom hook, you set the parameters, you tell it what it should return, if anything. Following this rule will help two things. First, you know this code block needs to follow the hook rules listed above. Second, this rule will help with consistency in your application. When you see a ***use***Function, you know its a custom hook, and must follow the rules listed above. This is also caught by react's linter.
+This is more of a strong suggestion than a rule. You name the custom hook, you set the parameters, you tell it what it should return, if anything. Following this rule will, you know this code block needs to follow the hook rules listed above. This rule will help with consistency in your application, as well. So again, When you see a ***use***Function, you know its a custom hook, and must follow the rules listed above. This is also caught by react's linter, just a heads up.
 
 ## What are custom hooks?
 
@@ -122,11 +122,11 @@ const useFetch = ({ url, defaultData = null }) => {
 export default useFetch
 ```
 
-When you are trying thinking about a situation for when you would use a custom hook, use your imagination. Although there are unconventional rules alongside hooks, they are still very flexible and have only begun to display their potential.
+When you are trying to think about a situation for when you would use a custom hook, use your imagination. Although there are unconventional rules alongside hooks, they are still very flexible and have only begun to display their potential.
 
 ## What are the benefits of using hooks?.
 
-Hooks allow you to curb complexity as apps grow, and write code that is much easier to digest and more approachable. The code below is a comparison of two components that have the same function. After the first comparison, we will demonstrate more benefits using a custom hook in a component that is accompanied by a container.
+Hooks allow you to curb complexity as you app grows and help you write code that is much easier to digest and more approachable. The code below is a comparison of two components that have the same functionality. After the first comparison, we will demonstrate more benefits using a custom hook in a component that is accompanied by a container.
 
 The following class component should be pretty familiar. *(no hooks)* 
 
@@ -192,8 +192,9 @@ function OneChanceButton(props)  {
 
 This comparison will demonstrate the power of implementing custom hooks by utilizing ```useState( )``` and the ```useEffect( ) ``` methods.
 
-1. Class Component followed by Container - NO HOOKS
-1. Functional Component followed by Container - WITH HOOKS
+The first two "files" below display a Class Component followed by Container - NO HOOKS
+
+The last two "files" display a Functional Component followed by Container - WITH HOOKS
 
 #### *The Class Component - No Hooks*
 
