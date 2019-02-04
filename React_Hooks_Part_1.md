@@ -1,4 +1,4 @@
-﻿# React Hooks - a primer
+# React Hooks - a primer
 
 TODO: add intro
 
@@ -98,6 +98,8 @@ useEffect(() => {
 
 onClick={() => setWeight(weight + 15)}
 ```
+
+This will trigger the ```useEffect( )``` method and render the new count in the title of the document just slightly after the DOM updates via useState in the previous section. 
 
 So, when `onClick` is triggered, the `useEffects` method will also be called and render the new count in the title of the document just slightly after the DOM updates.
 
