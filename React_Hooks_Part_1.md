@@ -1,4 +1,4 @@
-﻿# React Hooks - a primer
+# React Hooks - a primer
  
 React has benefits out the wazoo, but there are some slightly aggravating architecture principles that need to be addressed while developing larger applications. For instance, using complex higher order components to reuse stateful logic, and relying on lifecycle methods that trigger unrelated logic. Well, hooks help ease that aggravation… let’s get into it.
 
