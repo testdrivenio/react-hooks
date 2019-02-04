@@ -7,6 +7,7 @@ TODO: intro
 1. Are there rules to using hooks?
 1. What is a custom hook?
 1. When do I use custom hooks?
+1. What are the benefits of using hooks? *(comparison)*
 
 ## Rules of Hooks
 
@@ -44,7 +45,7 @@ Because of the way the hooks are initiated, they are not allowed to be used *wit
 
 For example:
 
-```
+```javascript
 // DON'T DO THIS!!
 const [DNAMatch, setDNAMatch] = useState(false)
 if (name !== '') {
@@ -54,8 +55,9 @@ if (name !== '') {
       localStorage.setItem('dad', name);
     }, []);
   }
-``` 
 ```
+
+```javascript
 // DO THIS!!
 const [DNAMatch, setDNAMatch] = useState(false)
 const [name, setName] = useState(null)
@@ -80,13 +82,13 @@ This is more of a strong suggestion than a rule. You name the custom hook, you s
 
 Custom hooks are just functions and follow the same rules as non-custom hooks. The benefit, they allow you to consolidate logic, share data, and reuse hooks across components. 
 
-## When do I use custom hooks?
+### When do I use custom hooks?
 
 Custom Hooks are best used when you need to share logic between components. In javascript, when you want share logic between two separate functions, you create another function to support that. Well, components are functions, and so are hooks. You can extract hook logic to be shared between components all around your application. As stated earlier, when writing custom hooks, you name it (start with *use*), you set the parameters, and you tell it what it should return, if anything.
 
 For Example:
 
-```
+```javascript
 import { useEffect, useState } from 'react'
 
 const useFetch = ({ url, defaultData = null }) => {
@@ -120,13 +122,13 @@ export default useFetch
 
 When you are trying thinking about a situation for when you would use a custom hook, use your imagination. Although there are unconventional rules alongside hooks, they are still very flexible and have only begun to display their potential.
 
-### Comparing a class component to a function component.
+## What are the benefits of using hooks?.
 
-The examples below demonstrate the difference between a class component without hooks, first code black, and a function component with hooks, ```useState( )```. 
+Hooks allow you to curb complexity as apps grow, and write code that is much easier to digest and more approachable. The code below is a comparison of two components that have the same function. After the first comparison, we will demonstrate more benefits using a custom hook in a component that is accompanied by a container.
 
-This class component should be pretty familiar. *(no hooks)* 
+The following class component should be pretty familiar. *(no hooks)* 
 
-```
+```javascript
 import React from 'react'
 
 class OneChanceButton extends React.Component  {
@@ -184,15 +186,17 @@ function OneChanceButton(props)  {
 }
 ```
 
-When you implement hooks you decrease the amount of code and increase readability. As the code gets more complex, you can curb that complexity with hooks and have code that is much easier to digest and more approachable. Next, we'll compare a more complex class component with a refactored function component using a custom hook function.
+### A more complex comparison
 
-### A more complex comparison using ```useState( )``` and ```useEffect( )``` .
+This comparison will demonstrate the power of implementing custom hooks by utilizing ```useState( )``` and the ```useEffect( ) ``` methods.
 
-This code example below will demonstrate the power of the ```useState( )``` and the ```useEffect( ) ``` methods. The first example will show a class component and container, without hooks.
+1. Class Component followed by Container - NO HOOKS
+1. Functional Component followed by Container - WITH HOOKS
 
-#### Example: No hooks
+#### *The Class Component - No Hooks*
 
-**The Class Component**
+*this class component uses state, and lifecycle methods*
+
 ```javascript
 import  React  from  'react';
 
@@ -247,9 +251,12 @@ class  Media  extends  React.Component {
 
 export  default  Media;
 ```
-**The Container**
+
+#### *The Container - No Hooks*
+
 *Notice the perceived hierarchy of the media element*
-```
+
+```javascript
 import  React, { Component } from  'react';
 import  Media  from  './Hookless.Media.container'
 
@@ -282,12 +289,11 @@ class  MediaHookless  extends  Component {
 export  default  MediaHookless;
 ```
 
-Let's implement a custom hook with ```useState``` and ```useEffect```.
+Let's implement a custom hook with ```useState( )``` and ```useEffect( )```.
 
-#### Example: With hooks
+#### *The Functional Component - With Hooks*
 
-**The Functional Component**
-```
+```javascript
 import {useState, useEffect} from  'react';
 
 const  useMedia  = (query) => {
@@ -295,7 +301,7 @@ const  useMedia  = (query) => {
 		window.matchMedia(query).matches
 	)
 	
-	// componentDidMount AND componentDidUnmount
+	// abstracts componentDidMount AND componentDidUnmount
 	useEffect(() => {
 		let  media  =  window.matchMedia(query)
 		if(media.matches  !==  matches) {
@@ -304,6 +310,8 @@ const  useMedia  = (query) => {
 		
 		let  listener  = () => setMatches(media.matches)
 		media.addListener(listener)
+		
+		// abstracts componentWillUnmount
 		return () => media.removeListener(listener)
 	}, [query])
 
@@ -312,12 +320,14 @@ const  useMedia  = (query) => {
 
 export  default  useMedia
 ```
-**The Container**
-```
+
+#### *The Container - With Custom Hook!*
+
+```javascript
 import  React  from  'react';
 import  useMedia  from  './Hooks.Media.container'
 
-function  MediaHookless() {
+function  MediaHooks() {
 	let  small  =  useMedia("(max-width: 400px)")
 	let  large  =  useMedia("(min-width: 800px)")
 
@@ -334,15 +344,16 @@ function  MediaHookless() {
 	)
 }
 
-export  default  MediaHookless;
+export  default  MediaHooks;
 ```
+
 [The Media Query repo.](https://github.com/testdrivenio/react-hooks/tree/master/media-query-custom-hooks)
 
-want more?
+Want more?
 
 [A more complex example using ```useRef( )``` and ```useReducer( )```.](https://github.com/testdrivenio/react-hooks/tree/master/media-query-custom-hooks)
 
-### Conclusion
+## Conclusion
 
 React hooks will have many benefits when they debut officially.
 Hooks will... 
