@@ -4,6 +4,13 @@ React has benefits out the wazoo, but there are some slightly aggravating archit
 
 [There’s a more in-depth explanation on react’s motivation](https://reactjs.org/docs/hooks-intro.html#motivation)
 
+**Sidebar: Release notes from React**
+
+[Here is the roadmap to React's [upcoming releases (*React hooks ~ Q1 2019 !*)](https://reactjs.org/blog/2018/11/27/react-16-roadmap.html#tldr)
+
+React Native hooks will not be available just yet, [but there's a hack and it's for the adventurous](https://github.com/facebook/react-native/issues/21967#issuecomment-434425169)
+
+React 16.8 should be ready for release at about Q2 2019! + [Concurrent Mode(no major changes to hooks proposed)](https://reactjs.org/blog/2018/11/27/react-16-roadmap.html#react-16x-q2-2019-the-one-with-concurrent-mode)
 ## Learning Objectives
 
 1. What are Hooks?
