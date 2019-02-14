@@ -6,7 +6,7 @@ React has benefits out the wazoo, but there are some slightly aggravating archit
 
 **Sidebar: Release notes from React**
 
-[Here is the roadmap to React's [upcoming releases (*React hooks ~ Q1 2019 !*)](https://reactjs.org/blog/2018/11/27/react-16-roadmap.html#tldr)
+Here is the roadmap to React's [upcoming releases (*React hooks ~ Q1 2019 !*)](https://reactjs.org/blog/2018/11/27/react-16-roadmap.html#tldr)
 
 React Native hooks will not be available just yet, [but there's a hack and it's for the adventurous](https://github.com/facebook/react-native/issues/21967#issuecomment-434425169)
 
