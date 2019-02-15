@@ -26,14 +26,14 @@ For example:
 ```javascript
 //This is good!
 function ComponentWithHooks() {
-	// top-level!
-	const [age, setAge] = useState(42);
-	const [date, setDate] = useState('with a girl');
-	const [todos, setTodos] = useState([{ text: 'Date' }]);
+  // top-level!
+  const [age, setAge] = useState(42);
+  const [date, setDate] = useState('with a girl');
+  const [todos, setTodos] = useState([{ text: 'Date' }]);
 
-    return (
-        //...
-    )                      
+  return (
+      //...
+  )                      
 }
 ```
 
@@ -50,26 +50,29 @@ For example:
 ```javascript
 // DON'T DO THIS!!
 const [DNAMatch, setDNAMatch] = useState(false)
+
 if (name !== '') {
-	setDNAMatch(true)
-	const [name, setName] = useState(name)
-    useEffect(function persistFamily() {
-      localStorage.setItem('dad', name);
-    }, []);
-  }
+  setDNAMatch(true)
+  const [name, setName] = useState(name)
+
+  useEffect(function persistFamily() {
+    localStorage.setItem('dad', name);
+  }, []);
+}
 ```
 
 ```javascript
 // DO THIS!!
 const [DNAMatch, setDNAMatch] = useState(false)
 const [name, setName] = useState(null)
-useEffect(function store() {
-    if (name !== '') {
-		setDNAMatch(true)
-	  	setName(name)
-      	localStorage.setItem('dad', name);
-    }
-  }, []);
+
+useEffect(() => {
+  if (name !== '') {
+    setDNAMatch(true)
+    setName(name)
+    localStorage.setItem('dad', name);
+  }
+}, []);
 ```
 
 ### 3. Hooks cannot be used in a class component. 
@@ -99,7 +102,8 @@ const useFetch = ({ url, defaultData = null }) => {
   const [error, setError] = useState(null)
 
   useEffect(() => {
-    fetch(url).then(res => res.json())
+    fetch(url)
+      .then(res => res.json())
       .then(res => {
         setData(res)
         setLoading(false)
@@ -111,9 +115,9 @@ const useFetch = ({ url, defaultData = null }) => {
   }, [])
   
   const fetchResults = {
-	  data, 
-	  loading, 
-	  error
+    data,
+    loading,
+    error
   }
   
   return fetchResults
@@ -134,31 +138,29 @@ The following class component should be pretty familiar. *(no hooks)*
 import React from 'react'
 
 class OneChanceButton extends React.Component  {
-	constructor(props){ 
-		super(props)
-		state =  {
-			clicked: false  
-		}
-		this.handleClick = this.handleClick.bind(this);
-	}
+  constructor(props){
+    super(props) 
+    state =  {
+      clicked: false
+    }
+    this.handleClick = this.handleClick.bind(this);
+  }
 
-	handleClick() {  
-		this.props.onClick();
-		this.setState({ clicked:  true  });  
-	}  
-
-	render()  {  
-		return  (
-			<div>
-				<h1>{this.props.name}, click it!</h1>  
-				<button 
-					onClick={this.handleClick} 
-					disabled={this.state.clicked}> 
-					You Have One Chance to Click 
-				</button> 
-			</div> 
-		);
-	}  
+  handleClick() {
+    return this.setState({ clicked:  true  });
+  }
+  
+  render()  {
+    return  (
+      <div>
+        <button
+          onClick={this.handleClick}
+          disabled={this.state.clicked}>
+          You Have One Chance to Click
+        </button>
+      </div>
+    );
+  }
 }
 ```
 
@@ -168,23 +170,21 @@ In the code that follows we **use hooks** to simplify the code and increase read
 import React,  { useState }  from  'react'; 
 
 function OneChanceButton(props)  {
-	const [clicked, setClicked] = useState(false);
+  const [clicked, setClicked] = useState(false);
 
-	function doClick() { 
-		props.onClick();  
-		setClicked(true); 
-	} 
+  function doClick() {
+    return setClicked(true); 
+  } 
 
-	return  (  
-		<div>
-			<h1>{this.props.name}, click it!</h1>
-			<button 
-				onClick={clicked ? undefined : doClick} 
-				disabled={clicked} > 
-				You Have One Chance to Click 
-			</button> 
-		</div> 
-	);  
+  return  (  
+    <div>
+      <button 
+        onClick={clicked ? undefined : doClick} 
+        disabled={clicked} > 
+        You Have One Chance to Click 
+      </button> 
+    </div> 
+  );  
 }
 ```
 
@@ -204,52 +204,53 @@ The last two "files" display a Functional Component followed by Container - WITH
 import  React  from  'react';
 
 class  Media  extends  React.Component {
-	// initial state
-	state  = {
-		matches:  window.matchMedia(this.props.query).matches
-	}
-	// initial setup
-	componentDidMount(){
-		this.setup()
-	}
-	setup() {
-		let  media  =  window.matchMedia(this.props.query)
-		// screen size check
-		if(media.matches  !==  this.state.matches) {
-			this.setState({matches:  media.matches})
-		}
+  // initial state
+  state  = {
+    matches:  window.matchMedia(this.props.query).matches
+  }
+  // initial setup
+  componentDidMount(){
+    this.setup()
+  }
+  
+  setup() {
+    let  media  =  window.matchMedia(this.props.query)
+    // screen size check
+    if(media.matches  !==  this.state.matches) {
+      this.setState({matches:  media.matches})
+    }
+    
+    // create a listener
+    let  listener  = () => {
+      this.setState({matches:  media.matches})
+    }
 
-		// create a listener
-		let  listener  = () => {
-			this.setState({matches:  media.matches})
-		}
-		
-		// add the listener
-		media.addListener(listener)
-		
-		// add remove listener
-		this.removeListener  = () => {
-			media.removeListener(listener)
-		}
-	}
+    // add the listener
+    media.addListener(listener)
 
-	componentDidUpdate(prevProps){
-	// reset and re-subscribe if there are any changes
-	if(prevProps.query  !==  this.props.query){
-		this.removeListener()
-			this.setup()
-		}	
-	}
-	
-	// remove listener when unmounted
-	componentWillUnmount(){
-		this.removeListener()
-	}
-	
-	// give the app what it wants ...state!
-	render() {
-		return  this.props.children(this.state.matches)
-	}
+    // add remove listener
+    this.removeListener  = () => {
+      media.removeListener(listener)
+    }
+  }
+  
+  componentDidUpdate(prevProps){
+    // reset and re-subscribe if there are any changes
+    if(prevProps.query  !==  this.props.query){
+      this.removeListener()
+      this.setup()
+    }	
+  }
+
+  // remove listener when unmounted
+  componentWillUnmount(){
+    this.removeListener()
+  }
+
+  // give the app what it wants ...state!
+  render() {
+    return  this.props.children(this.state.matches)
+  }
 }
 
 export  default  Media;
@@ -264,29 +265,29 @@ import  React, { Component } from  'react';
 import  Media  from  './Hookless.Media.container'
 
 class  MediaHookless  extends  Component {
-	render() {
-		return (
-			<Media  query="(max-width: 400px)">
-				{small  => (
-					<Media  query="(min-width: 800px)">
-						{ large  => (
-							<div  className='media'>
-								<h1>Media</h1>
-								<p>
-								Small ? 
-								{small ? 'YEP' : 'NOPE'}
-								</p>
-								<p>
-								Large ? 
-								{large ? 'YEP' : 'NOPE'}
-								</p>
-							</div>
-						)}
-					</Media>
-				)}
-			</Media>
-		);
-	}
+  render() {
+    return (
+      <Media  query="(max-width: 400px)">
+        {small  => (
+          <Media  query="(min-width: 800px)">
+            { large  => (
+              <div  className='media'>
+                <h1>Media</h1>
+                  <p>
+                    Small ? 
+                    {small ? 'YEP' : 'NOPE'}
+                  </p>
+                  <p>
+                    Large ? 
+                    {large ? 'YEP' : 'NOPE'}
+                  </p>
+              </div>
+            )}
+          </Media>
+        )}
+      </Media>
+    );
+  }
 }
 
 export  default  MediaHookless;
@@ -300,25 +301,26 @@ Let's implement a custom hook with ```useState( )``` and ```useEffect( )```.
 import {useState, useEffect} from  'react';
 
 const  useMedia  = (query) => {
-	let [matches, setMatches] =  useState(
-		window.matchMedia(query).matches
-	)
-	
-	// abstracts componentDidMount AND componentDidUnmount
-	useEffect(() => {
-		let  media  =  window.matchMedia(query)
-		if(media.matches  !==  matches) {
-			setMatches(media.matches)	
-		}
-		
-		let  listener  = () => setMatches(media.matches)
-		media.addListener(listener)
-		
-		// abstracts componentWillUnmount
-		return () => media.removeListener(listener)
-	}, [query])
+  let [matches, setMatches] =  useState(
+    window.matchMedia(query).matches
+  )
 
-	return  matches
+  // abstracts componentDidMount AND componentDidUnmount
+  useEffect(() => {
+    let  media  =  window.matchMedia(query)
+
+    if(media.matches  !==  matches) {
+      setMatches(media.matches)	
+    }
+
+    let  listener  = () => setMatches(media.matches)
+    media.addListener(listener)
+
+    // abstracts componentWillUnmount
+    return () => media.removeListener(listener)
+  }, [query])
+
+  return  matches
 }
 
 export  default  useMedia
@@ -331,20 +333,20 @@ import  React  from  'react';
 import  useMedia  from  './Hooks.Media.container'
 
 function  MediaHooks() {
-	let  small  =  useMedia("(max-width: 400px)")
-	let  large  =  useMedia("(min-width: 800px)")
+let  small  =  useMedia("(max-width: 400px)")
+let  large  =  useMedia("(min-width: 800px)")
 
-	return (
-		<div  className='media'>
-			<h1>Media</h1>
-			<p>
-				Small ? {small ? 'YEP' : 'NOPE'}
-			</p>
-			<p>
-				Large ? {large ? 'YEP' : 'NOPE'}
-			</p>
-		</div>
-	)
+  return (
+    <div  className='media'>
+      <h1>Media</h1>
+      <p>
+        Small ? {small ? 'YEP' : 'NOPE'}
+      </p>
+      <p>
+        Large ? {large ? 'YEP' : 'NOPE'}
+      </p>
+    </div>
+  )
 }
 
 export  default  MediaHooks;
